@@ -4,8 +4,8 @@
                              http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.librairy</groupId>
-    <artifactId>metrics</artifactId>
-    <version>1.0</version>
+    <artifactId>librairy-metrics</artifactId>
+    <version>1.1</version>
     <packaging>jar</packaging>
     <name>Librairy Metrics</name>
     <description>It makes sense to use librairy.</description>

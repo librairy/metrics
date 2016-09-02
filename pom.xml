@@ -5,9 +5,9 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.librairy</groupId>
     <artifactId>librairy-metrics</artifactId>
-    <version>1.2-SNAPSHOT</version>
+    <version>1.2</version>
     <packaging>jar</packaging>
-    <name>Librairy Metrics</name>
+    <name>metrics</name>
     <description>It makes sense to use librairy.</description>
     <url>https://github.com/librairy/metrics</url>
     <organization>
@@ -57,13 +57,12 @@
         <jmetal.version>5.0-Beta-29</jmetal.version>
         <jsoup.version>1.8.2</jsoup.version>
         <junit.version>4.12</junit.version>
+        <librairy.computing.version>0.3</librairy.computing.version>
         <lucene.version>3.6.0</lucene.version>
         <mahout.version>0.10.0</mahout.version>
         <math3.version>3.5</math3.version>
         <pdfbox.version>1.8.9</pdfbox.version>
-        <scala.version>2.10.6</scala.version><!-- 2.11.2 -->
         <scalatest.version>2.2.4</scalatest.version>
-        <spark.version>1.6.1</spark.version><!-- 1.5.0 -->
     </properties>
 
     <build>
@@ -134,6 +133,13 @@
   </build>
 
   <dependencies>
+
+          <!-- JUnit Tests -->
+          <dependency>
+              <groupId>org.librairy</groupId>
+              <artifactId>librairy-computing</artifactId>
+              <version>${librairy.computing.version}</version>
+          </dependency>
           <!-- JUnit Tests -->
           <dependency>
               <groupId>junit</groupId>
@@ -148,18 +154,6 @@
               <version>${scalatest.version}</version>
               <scope>test</scope>
           </dependency>
-          <!-- Spark Core -->
-          <dependency>
-              <groupId>org.apache.spark</groupId>
-              <artifactId>spark-core_2.10</artifactId>
-              <version>${spark.version}</version>
-          </dependency>
-          <!-- Machine Learning Spark Library -->
-          <dependency>
-              <groupId>org.apache.spark</groupId>
-              <artifactId>spark-mllib_2.10</artifactId>
-              <version>${spark.version}</version>
-          </dependency>
           <!-- Apache Commons Math -->
           <dependency>
               <groupId>org.apache.commons</groupId>
@@ -171,12 +165,6 @@
               <groupId>org.uma.jmetal</groupId>
               <artifactId>jmetal-algorithm</artifactId>
               <version>${jmetal.version}</version>
-          </dependency>
-          <!-- Scala Library -->
-          <dependency>
-              <groupId>org.scala-lang</groupId>
-              <artifactId>scala-library</artifactId>
-              <version>${scala.version}</version>
           </dependency>
 
       </dependencies>

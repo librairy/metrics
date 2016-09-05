@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.librairy</groupId>
     <artifactId>librairy-metrics</artifactId>
-    <version>1.4-SNAPSHOT</version>
+    <version>1.4</version>
     <packaging>jar</packaging>
     <name>metrics</name>
     <description>It makes sense to use librairy.</description>
@@ -57,12 +57,28 @@
         <jmetal.version>5.0-Beta-29</jmetal.version>
         <jsoup.version>1.8.2</jsoup.version>
         <junit.version>4.12</junit.version>
-        <librairy.computing.version>0.4</librairy.computing.version>
+        <librairy.computing.version>0.5</librairy.computing.version>
         <lucene.version>3.6.0</lucene.version>
         <mahout.version>0.10.0</mahout.version>
         <math3.version>3.5</math3.version>
         <scalatest.version>2.2.4</scalatest.version>
     </properties>
+
+
+  <dependencyManagement>
+      <dependencies>
+
+          <!-- librairy boot dependencyManagement -->
+          <dependency>
+              <groupId>org.librairy</groupId>
+              <artifactId>librairy-computing</artifactId>
+              <version>${librairy.computing.version}</version>
+              <type>pom</type>
+              <scope>import</scope>
+          </dependency>
+
+      </dependencies>
+  </dependencyManagement>
 
   <dependencies>
           <!-- librairy-computing -->

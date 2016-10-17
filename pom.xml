@@ -12,7 +12,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.librairy</groupId>
     <artifactId>librairy-metrics</artifactId>
-    <version>1.9</version>
+    <version>1.10-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>metrics</name>
     <description>It makes sense to use librairy.</description>

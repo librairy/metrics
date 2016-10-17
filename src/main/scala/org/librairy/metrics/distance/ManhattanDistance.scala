@@ -12,6 +12,7 @@ package org.librairy.metrics.distance
  */
 object ManhattanDistance {
 
+  //TODO
   def apply (p: Array[Double], q: Array[Double]): Double ={
     0.0
   }

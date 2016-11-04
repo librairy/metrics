@@ -22,46 +22,6 @@ import java.util.Set;
  */
 public class ExtendedKendallsTauDistanceTest {
 
-
-    @Test
-    public void combinateTest(){
-
-        Set<Pair<String>> result = new Permutations<String>().sorted(Lists.newArrayList("a", "b", "c", "d", "e"));
-
-        System.out.println(result);
-
-        Set<Pair<String>> reference = Sets.newHashSet(
-                new Pair("a","b"),
-                new Pair("a","c"),
-                new Pair("a","d"),
-                new Pair("a","e"),
-                new Pair("b","c"),
-                new Pair("b","d"),
-                new Pair("b","e"),
-                new Pair("c","d"),
-                new Pair("c","e"),
-                new Pair("d","e")
-        );
-
-        Assert.assertEquals(reference,result);
-
-    }
-
-    @Test
-    public void minValue(){
-
-
-        Ranking wl = new Ranking();
-
-        Integer position = wl.getPosition("a");
-        System.out.println("Position: " + position);
-
-        Double weight = wl.getWeight("a");
-        System.out.println("Weight: " + weight);
-
-    }
-
-
     @Test
     public void permutations(){
 

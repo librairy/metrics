@@ -17,7 +17,6 @@ import java.util.stream.Collectors;
  */
 public class Permutations<T> {
 
-
     public Set<Pair<T>> between(List<T> el1,List<T> el2 ){
 
         if (el1.isEmpty()) return Collections.emptySet();

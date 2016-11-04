@@ -12,7 +12,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.librairy</groupId>
     <artifactId>librairy-metrics</artifactId>
-    <version>1.10-SNAPSHOT</version>
+    <version>1.10</version>
     <packaging>jar</packaging>
     <name>metrics</name>
     <description>It makes sense to use librairy.</description>
@@ -152,8 +152,8 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>${maven.dependency.version}</version>
                 <configuration>
-                    <source>1.7</source>
-                    <target>1.7</target>
+                    <source>${project.java.version}</source>
+                    <target>${project.java.version}</target>
                 </configuration>
             </plugin>
             <!-- Github Deploy -->

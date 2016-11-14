@@ -8,7 +8,7 @@
 package org.librairy.metrics.topics
 
 import org.apache.commons.math3.distribution.NormalDistribution
-import org.apache.spark.mllib.clustering.{DistributedLDAModel, LDA}
+import org.apache.spark.mllib.clustering.{DistributedLDAModel, LDA, OnlineLDAOptimizer}
 import org.apache.spark.mllib.linalg.Vector
 import org.apache.spark.rdd.RDD
 import org.slf4j.LoggerFactory
@@ -51,6 +51,7 @@ class LDAProblem(domain: RDD[(Long, Vector)], iterations: Integer) extends Probl
     }else{
       //TODO Spark 1.4.1 return LDAModel instead of DistributedLDAModel
       model = new LDA().
+        setOptimizer(new OnlineLDAOptimizer().setMiniBatchFraction(0.8)).
         setK(solution.getTopics).
         setMaxIterations(iterations).
         setDocConcentration(solution.getAlpha).

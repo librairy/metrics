@@ -8,7 +8,7 @@
 package org.librairy.metrics.topics
 
 import org.apache.commons.math3.distribution.NormalDistribution
-import org.apache.spark.mllib.clustering.{DistributedLDAModel, LDA, OnlineLDAOptimizer}
+import org.apache.spark.mllib.clustering.{LDA, LocalLDAModel, OnlineLDAOptimizer}
 import org.apache.spark.mllib.linalg.Vector
 import org.apache.spark.rdd.RDD
 import org.slf4j.LoggerFactory
@@ -35,11 +35,11 @@ class LDAProblem(domain: RDD[(Long, Vector)], iterations: Integer) extends Probl
 
   val topicDist = new NormalDistribution(Math.sqrt(domainSize/2).toInt,2) // Normal distribution around rule of thumb
 
-  var values : scala.collection.mutable.Map[LDASolution,DistributedLDAModel] = scala.collection.mutable.Map[LDASolution,DistributedLDAModel]()
+  var values : scala.collection.mutable.Map[LDASolution,LocalLDAModel] = scala.collection.mutable.Map[LDASolution,LocalLDAModel]()
 
   def evaluate(solution: LDASolution) ={
 
-    var model: DistributedLDAModel = null
+    var model: LocalLDAModel = null
 
     solution.setLoglikelihood(0.0)
     solution.setLogprior(0.0)
@@ -56,14 +56,14 @@ class LDAProblem(domain: RDD[(Long, Vector)], iterations: Integer) extends Probl
         setMaxIterations(iterations).
         setDocConcentration(solution.getAlpha).
         setTopicConcentration(solution.getBeta).
-        run(domain).asInstanceOf[DistributedLDAModel]
+        run(domain).asInstanceOf[LocalLDAModel]
       values(solution) = model
     }
 
     // Objetive1 :: Minimize the abs value of logLikelihood => Maximize Likelihood
-    solution.setLoglikelihood(Math.abs(model.logLikelihood))
+    solution.setLoglikelihood(Math.abs(model.logLikelihood(domain)))
     // Objetive2 :: Minimize the abs value of logPrior      => Maximize Prior
-    solution.setLogprior(Math.abs(model.logPrior))
+    solution.setLogprior(Math.abs(model.logPerplexity(domain)))
     // Objetive3 :: Minimize the inverse of Normal Distribution with mean in the Rule of Thumb => Maximize number of cluster close to Rule of Thumb
     solution.setTopicsObj( 1 / (topicDist.density(model.k)+0.1))
     // Objetive4 :: Minimize the inverse of distance between alpha and beta  => Maximize distance between alpha and beta

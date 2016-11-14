@@ -63,7 +63,8 @@ class LDAProblem(domain: RDD[(Long, Vector)], iterations: Integer) extends Probl
     // Objetive1 :: Minimize the abs value of logLikelihood => Maximize Likelihood
     solution.setLoglikelihood(Math.abs(model.logLikelihood(domain)))
     // Objetive2 :: Minimize the abs value of logPrior      => Maximize Prior
-    solution.setLogprior(Math.abs(model.logPerplexity(domain)))
+    //solution.setLogprior(Math.abs(model.logPerplexity(domain)))
+    solution.setLogprior(1.0)
     // Objetive3 :: Minimize the inverse of Normal Distribution with mean in the Rule of Thumb => Maximize number of cluster close to Rule of Thumb
     solution.setTopicsObj( 1 / (topicDist.density(model.k)+0.1))
     // Objetive4 :: Minimize the inverse of distance between alpha and beta  => Maximize distance between alpha and beta

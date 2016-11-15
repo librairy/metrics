@@ -25,6 +25,8 @@ public class Ranking<T> {
 
     AtomicInteger counter = new AtomicInteger(1);
 
+    private String id;
+
     public Ranking add(T element, Double weight){
         if (!positions.containsKey(element)){
             positions.put(element,counter.getAndIncrement());

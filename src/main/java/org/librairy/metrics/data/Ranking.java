@@ -27,6 +27,14 @@ public class Ranking<T> {
 
     private String id;
 
+    public void setId(String id){
+        this.id = id;
+    }
+
+    public String getId(){
+        return this.id;
+    }
+
     public Ranking add(T element, Double weight){
         if (!positions.containsKey(element)){
             positions.put(element,counter.getAndIncrement());

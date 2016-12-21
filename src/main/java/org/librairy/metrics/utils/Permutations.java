@@ -11,22 +11,32 @@ import org.librairy.metrics.data.Pair;
 
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * @author Badenes Olmedo, Carlos <cbadenes@fi.upm.es>
  */
 public class Permutations<T> {
 
-    public Set<Pair<T>> between(List<T> el1,List<T> el2 ){
+//    public Set<Pair<T>> between(List<T> el1,List<T> el2 ){
+//
+//        if (el1.isEmpty()) return Collections.emptySet();
+//
+//        Set<Pair<T>> result = sorted(el1.get(0), el2);
+//
+//        result.addAll(between(el1.subList(1,el1.size()),el2));
+//
+//        return result;
+//
+//    }
 
-        if (el1.isEmpty()) return Collections.emptySet();
+    public List<Pair<T>> between(List<T> el1,List<T> el2 ){
+        if (el1.isEmpty() || el2.isEmpty()) return Collections.emptyList();
+        return el1.stream().flatMap(el -> combine(el, el2)).collect(Collectors.toList());
+    }
 
-        Set<Pair<T>> result = sorted(el1.get(0), el2);
-
-        result.addAll(between(el1.subList(1,el1.size()),el2));
-
-        return result;
-
+    private Stream<Pair<T>> combine(T el, List<T> list){
+        return list.stream().map(r -> new Pair<T>(el,r));
     }
 
 

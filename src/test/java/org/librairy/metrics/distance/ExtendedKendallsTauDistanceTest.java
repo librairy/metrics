@@ -9,13 +9,18 @@ package org.librairy.metrics.distance;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
+import org.apache.commons.lang.RandomStringUtils;
 import org.junit.Assert;
 import org.junit.Test;
 import org.librairy.metrics.data.Pair;
 import org.librairy.metrics.data.Ranking;
 import org.librairy.metrics.utils.Permutations;
 
+import java.time.Duration;
+import java.time.Instant;
+import java.util.Random;
 import java.util.Set;
+import java.util.stream.IntStream;
 
 /**
  * @author Badenes Olmedo, Carlos <cbadenes@fi.upm.es>
@@ -70,5 +75,25 @@ public class ExtendedKendallsTauDistanceTest {
         Assert.assertEquals(Double.valueOf(1.0),distance);
     }
 
+    @Test
+    public void testTime(){
+
+        Random random = new Random();
+
+        Ranking<String> r1 = new Ranking<>();
+        Ranking<String> r2 = new Ranking<>();
+
+        IntStream.range(0,100).forEach(i ->{
+            r1.add(RandomStringUtils.randomAlphanumeric(10), random.nextDouble());
+            r2.add(RandomStringUtils.randomAlphanumeric(10), random.nextDouble());
+        });
+
+        Instant a = Instant.now();
+        Double distance = new ExtendedKendallsTauDistance<String>().calculate(r1, r2, new LevenshteinSimilarity());
+        Instant b = Instant.now();
+        System.out.println("distance: " + distance);
+        System.out.println("elapsed time: " + Duration.between(a,b).toMillis() + " msecs");
+
+    }
 
 }

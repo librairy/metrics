@@ -7,12 +7,16 @@
 
 package org.librairy.metrics.distance;
 
+import com.google.common.util.concurrent.AtomicDouble;
 import org.librairy.metrics.data.Pair;
 import org.librairy.metrics.data.Ranking;
 import org.librairy.metrics.utils.Permutations;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.time.Duration;
+import java.time.Instant;
+import java.util.List;
 import java.util.Set;
 
 
@@ -31,18 +35,20 @@ public class ExtendedKendallsTauDistance<T> {
 
     public Double calculate(Ranking<T> r1, Ranking<T> r2, SimilarityMeasure<T> similarityMeasure){
 
-        Double distance = 0.0;
+        AtomicDouble distance = new AtomicDouble(0.0);
 
-        Set<Pair<T>> elements = new Permutations<T>().between(r1.getElements(), r2.getElements());
+        Instant a = Instant.now();
+        List<Pair<T>> elements = new Permutations<T>().between(r1.getElements(), r2.getElements());
+        Instant b = Instant.now();
+        System.out.println("permutations " + Duration.between(a,b).toMillis());
 
-        for (Pair<T> pair: elements){
-
+        elements.parallelStream().forEach( pair -> {
             T i = pair.getI();
             T j = pair.getJ();
 
             if (!r1.exist(i) || !r1.exist(j) || !r2.exist(i) || !r2.exist(j)) {
-                distance += 1.0;
-                continue;
+                distance.addAndGet(1.0);
+                return;
             }
 
             Integer d1 = r1.getPosition(j)-r1.getPosition(i);
@@ -68,12 +74,11 @@ public class ExtendedKendallsTauDistance<T> {
                 Double sij  = 1.0 - Dij;
                 LOG.debug("\t -> Element Similarity = " + Dij);
 
-                distance += (wi+wj+pi+pj+sij)/5.0;
+                distance.addAndGet((wi+wj+pi+pj+sij)/5.0);
             }
+        });
 
-        }
-
-        return distance/elements.size();
+        return distance.get()/elements.size();
     }
 
 

@@ -36,11 +36,7 @@ public class ExtendedKendallsTauDistance<T> {
     public Double calculate(Ranking<T> r1, Ranking<T> r2, SimilarityMeasure<T> similarityMeasure){
 
         AtomicDouble distance = new AtomicDouble(0.0);
-
-        Instant a = Instant.now();
         List<Pair<T>> elements = new Permutations<T>().between(r1.getElements(), r2.getElements());
-        Instant b = Instant.now();
-        System.out.println("permutations " + Duration.between(a,b).toMillis());
 
         elements.parallelStream().forEach( pair -> {
             T i = pair.getI();

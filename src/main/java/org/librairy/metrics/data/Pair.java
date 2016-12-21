@@ -10,13 +10,14 @@ package org.librairy.metrics.data;
 import com.google.common.collect.Lists;
 import lombok.Data;
 
+import java.io.Serializable;
 import java.util.stream.Collectors;
 
 /**
  * @author Badenes Olmedo, Carlos <cbadenes@fi.upm.es>
  */
 @Data
-public class Pair<T>{
+public class Pair<T> implements Serializable {
 
     T i;
     T j;

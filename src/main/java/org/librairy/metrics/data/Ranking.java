@@ -7,6 +7,7 @@
 
 package org.librairy.metrics.data;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -17,7 +18,7 @@ import java.util.stream.Collectors;
 /**
  * @author Badenes Olmedo, Carlos <cbadenes@fi.upm.es>
  */
-public class Ranking<T> {
+public class Ranking<T> implements Serializable{
 
     Map<T,Integer> positions   = new ConcurrentHashMap<>();
 

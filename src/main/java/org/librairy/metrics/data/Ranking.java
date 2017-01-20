@@ -7,6 +7,8 @@
 
 package org.librairy.metrics.data;
 
+import scala.Tuple2;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -62,6 +64,10 @@ public class Ranking<T> implements Serializable{
         return new ArrayList(positions.keySet());
     }
 
+
+    public List<Tuple2<T, Double>> getPairs(){
+        return this.weights.entrySet().stream().map(e -> new Tuple2<T,Double>(e.getKey(),e.getValue())).collect(Collectors.toList());
+    }
 
     @Override
     public String toString() {

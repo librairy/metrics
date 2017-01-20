@@ -20,8 +20,13 @@ object JensenShannonDivergence {
     var sumQ : Double = 0.0
 
     for (i <- Range(0, p.length)) {
-      sumP += p(i) * Math.log( (2*p(i))/(p(i)+q(i)))
-      sumQ += q(i) * Math.log( (2*q(i)/(p(i)+q(i))))
+
+      if (p(i) == 0 || q(i) == 0) {
+        return 1.0
+      }else{
+        sumP += p(i) * Math.log( (2*p(i))/(p(i)+q(i)))
+        sumQ += q(i) * Math.log( (2*q(i)/(p(i)+q(i))))
+      }
     }
     sumP + sumQ
   }

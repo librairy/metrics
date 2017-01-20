@@ -17,7 +17,9 @@ import org.librairy.metrics.distance.JensenShannonDivergence
 object JensenShannonSimilarity {
 
   def apply(p: Array[Double], q: Array[Double]): Double = {
-    Math.pow(10,-JensenShannonDivergence(p,q))
+    val divergence = JensenShannonDivergence(p,q)
+    if (divergence == 1.0) return 0.0
+    Math.pow(10,-divergence)
   }
 
 }

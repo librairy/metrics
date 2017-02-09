@@ -7,14 +7,9 @@
 
 package org.librairy.metrics.distance;
 
-import com.google.common.util.concurrent.AtomicDouble;
-import org.librairy.metrics.data.Pair;
 import org.librairy.metrics.data.Ranking;
-import org.librairy.metrics.utils.Permutations;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.util.List;
 
 
 /**
@@ -32,7 +27,9 @@ public class ExtendedKendallsTauSimilarity<T> {
 
     public Double calculate(Ranking<T> r1, Ranking<T> r2, SimilarityMeasure<T> similarityMeasure){
 
-        return 1 + new ExtendedKendallsTauDistance<T>().calculate(r1,r2,similarityMeasure);
+        Double distance = new ExtendedKendallsTauDistance<T>().calculate(r1,r2,similarityMeasure);
+        double score = Math.abs(distance - 1);
+        return score;
 
     }
 }

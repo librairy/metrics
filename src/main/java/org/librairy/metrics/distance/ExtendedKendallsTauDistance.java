@@ -68,7 +68,7 @@ public class ExtendedKendallsTauDistance<T> {
                 // Element Similarities
                 Double Dij  = similarityMeasure.between(i,j);
                 Double sij  = 1.0 - Dij;
-                LOG.debug("\t -> Element Similarity = " + Dij);
+                LOG.debug("\t -> Element Similarity = " + sij);
 
                 distance.addAndGet((wi+wj+pi+pj+sij)/5.0);
             }
@@ -89,28 +89,41 @@ public class ExtendedKendallsTauDistance<T> {
 
         if (i == sigmai) return 0.0;
 
-
         Integer maxDisplacement = r1.getElements().size();
-        Double pi           = positionWeightOf(i,maxDisplacement);
-        Double psigmai      = positionWeightOf(sigmai,maxDisplacement);
 
-        return Math.abs(pi-psigmai);
-    }
+        Integer maxWeight = maxDisplacement * (maxDisplacement + 1) / 2;
 
-    private static Double positionWeightOf(Integer position, Integer maxDisplacement){
-        if (position == 1) return Double.valueOf(maxDisplacement-1);
+        Integer a = maxDisplacement + 1 - Math.min(i, sigmai);
+        Integer b = maxDisplacement + 1 - Math.max(i, sigmai);
 
-        Double accumulatedCost = 0.0;
-
-        for (int j = 1; j<=(position-1); j++){
-            accumulatedCost += swapCostOf(j,maxDisplacement);
+        Integer displacement = 0;
+        for (int j = a; j >= b ; j--){
+            displacement += j;
         }
 
-        return accumulatedCost;
+        Double weightDisplacement = Double.valueOf(displacement) / maxWeight;
+        return weightDisplacement;
+//
+//        Double pi           = positionWeightOf(i,maxDisplacement);
+//        Double psigmai      = positionWeightOf(sigmai,maxDisplacement);
+//
+//        return Math.abs(pi-psigmai);
     }
 
-    private static Double swapCostOf(Integer j, Integer maxDisplacement){
-        return ((maxDisplacement-j)/2.0);
-    }
+//    private static Double positionWeightOf(Integer position, Integer maxDisplacement){
+//        if (position == 1) return Double.valueOf(maxDisplacement-1);
+//
+//        Double accumulatedCost = 0.0;
+//
+//        for (int j = 1; j<=(position-1); j++){
+//            accumulatedCost += swapCostOf(j,maxDisplacement);
+//        }
+//
+//        return accumulatedCost;
+//    }
+
+//    private static Double swapCostOf(Integer j, Integer maxDisplacement){
+//        return ((maxDisplacement-j)/Double.valueOf(maxDisplacement));
+//    }
 
 }

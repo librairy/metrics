@@ -96,4 +96,38 @@ public class ExtendedKendallsTauDistanceTest {
 
     }
 
+    @Test
+    public void sample(){
+
+        Ranking r1    = new Ranking()
+                .add("cell",0.00331400711188639)
+                .add("content",0.0015733913531514457)
+                .add("mouse",0.0012848762840690605)
+                .add("west",9.359398354193688E-4)
+                .add("antigen",8.371448195540803E-4)
+                .add("prod",8.014036195613543E-4)
+                .add("amazonaws",7.728747000382398E-4)
+                .add("store",7.566799842029915E-4)
+                .add("image",7.193596445638932E-4)
+                .add("expression",7.074286713122537E-4)
+                ;
+        Ranking r2    = new Ranking()
+                .add("s0264999316304941",0.018418884835828077)
+                .add("s0264999316301079",0.011634094651950934)
+                .add("s0264999313001429",0.011064523790205583)
+                .add("s0264999312003628",0.008795251049155456)
+                .add("politician",8.752760484520667E-4)
+                .add("gifgif322147altimg1",6.745127351755857E-4)
+                .add("content",5.580198364837636E-4)
+                .add("rate",5.265150156554328E-4)
+                .add("store",5.053231727756484E-4)
+                ;
+
+
+        Double score = new ExtendedKendallsTauSimilarity<String>().calculate(r1, r2, new LevenshteinSimilarity());
+
+        System.out.println("Score: " + score);
+
+    }
+
 }

@@ -12,9 +12,15 @@ package org.librairy.metrics.distance
  */
 object HellingerDistance {
 
-  //TODO
   def apply (p: Array[Double], q: Array[Double]): Double ={
-    0.0
+    var sum : Double = 0.0
+
+    if (p.length != q.length) return -1;
+
+    for (i <- Range(0, p.length)) {
+      sum += Math.pow(Math.sqrt(p(i)) - Math.sqrt(q(i)),2)
+    }
+    (1 / Math.sqrt(2))*Math.sqrt(sum)
   }
 
 }

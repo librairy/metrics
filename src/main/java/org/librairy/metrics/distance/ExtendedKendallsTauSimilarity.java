@@ -21,7 +21,7 @@ import org.slf4j.LoggerFactory;
  *   (3), 571. http://doi.org/10.1145/1772690.1772749
  *
  */
-public class ExtendedKendallsTauSimilarity<T> {
+public class ExtendedKendallsTauSimilarity<T> implements RankingSimilarityMetric<T> {
 
     private static final Logger LOG = LoggerFactory.getLogger(ExtendedKendallsTauSimilarity.class);
 
@@ -31,5 +31,10 @@ public class ExtendedKendallsTauSimilarity<T> {
         double score = Math.abs(distance - 1);
         return score;
 
+    }
+
+    @Override
+    public Double calculate(Ranking<T> r1, Ranking<T> r2) {
+        return calculate(r1, r2, (SimilarityMeasure<T>) new LevenshteinSimilarity());
     }
 }

@@ -14,10 +14,7 @@ import org.librairy.metrics.utils.Permutations;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.time.Duration;
-import java.time.Instant;
 import java.util.List;
-import java.util.Set;
 
 
 /**
@@ -29,7 +26,7 @@ import java.util.Set;
  *   (3), 571. http://doi.org/10.1145/1772690.1772749
  *
  */
-public class ExtendedKendallsTauDistance<T> {
+public class ExtendedKendallsTauDistance<T>  {
 
     private static final Logger LOG = LoggerFactory.getLogger(ExtendedKendallsTauDistance.class);
 
@@ -109,6 +106,7 @@ public class ExtendedKendallsTauDistance<T> {
 //
 //        return Math.abs(pi-psigmai);
     }
+
 
 //    private static Double positionWeightOf(Integer position, Integer maxDisplacement){
 //        if (position == 1) return Double.valueOf(maxDisplacement-1);

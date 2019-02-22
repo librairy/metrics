@@ -23,12 +23,12 @@ public class DensityBasedHash implements HashMeasure<List<Double>> {
     private Map<Integer, List<String>> cluster(List<Double> vector){
         try{
             Stats stats = new Stats(vector);
-            Double eps = stats.getMedian();
+            Double eps = stats.getVariance();
             DistanceMeasure distanceMeasure = new MonoDimensionalDistanceMeasure();
 
             Map<Integer,List<String>> clusterMap = new HashMap<>();
 
-            int minPts = 1;
+            int minPts = 0;
             String sep = "_";
 
             DBSCANClusterer<TopicPoint> clusterer = new DBSCANClusterer<>(eps, minPts, distanceMeasure);
@@ -92,16 +92,18 @@ public class DensityBasedHash implements HashMeasure<List<Double>> {
 
         List<List<Double>> examples = new ArrayList<>();
 
-        examples.add(Arrays.asList(0.24925373134328338,
-                0.06019900497512432,
+        examples.add(Arrays.asList(
+                0.2194029850746267,
+                0.02039800995024874,
                 0.0004975124378109449,
                 0.0004975124378109449,
                 0.0004975124378109449,
-                0.24925373134328338,
+                0.289054726368159,
                 0.19950248756218888,
-                0.20945273631840777,
+                0.22935323383084558,
                 0.0004975124378109449,
-                0.030348258706467637));
+                0.04029850746268654
+        ));
 
         examples.add(Arrays.asList(0.24925373134328338,
                 0.05024875621890543,
@@ -137,6 +139,7 @@ public class DensityBasedHash implements HashMeasure<List<Double>> {
                 0.050248756218905434));
 
         DensityBasedHash hashAlgorithm = new DensityBasedHash();
+        System.out.println(hashAlgorithm.hash(examples.get(0)));
         examples.forEach(l -> System.out.println("hash: " + hashAlgorithm.hash(l)));
 
 

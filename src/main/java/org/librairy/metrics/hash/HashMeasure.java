@@ -5,12 +5,15 @@
  *
  */
 
-package org.librairy.metrics.distance;
+package org.librairy.metrics.hash;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author Badenes Olmedo, Carlos <cbadenes@fi.upm.es>
  */
-public interface SimilarityMeasure<T> {
+public interface HashMeasure<T> {
 
-    Double similarity(T el1, T el2);
+    Map<Integer,List<String>> hash(T el1);
 }

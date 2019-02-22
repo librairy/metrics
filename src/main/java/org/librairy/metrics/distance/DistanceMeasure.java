@@ -10,7 +10,7 @@ package org.librairy.metrics.distance;
 /**
  * @author Badenes Olmedo, Carlos <cbadenes@fi.upm.es>
  */
-public interface SimilarityMeasure<T> {
+public interface DistanceMeasure<T> {
 
-    Double similarity(T el1, T el2);
+    Double distance(T el1, T el2);
 }

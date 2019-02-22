@@ -7,7 +7,7 @@
 
 package org.librairy.metrics.data;
 
-import scala.Tuple2;
+import com.google.common.collect.ImmutableMap;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -65,8 +65,8 @@ public class Ranking<T> implements Serializable{
     }
 
 
-    public List<Tuple2<T, Double>> getPairs(){
-        return this.weights.entrySet().stream().map(e -> new Tuple2<T,Double>(e.getKey(),e.getValue())).collect(Collectors.toList());
+    public List<Map<T, Double>> getPairs(){
+        return this.weights.entrySet().stream().map(e -> ImmutableMap.of(e.getKey(),e.getValue())).collect(Collectors.toList());
     }
 
     @Override

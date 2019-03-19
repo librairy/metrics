@@ -19,6 +19,26 @@ public class Evaluation {
         this.time       = new Date();
     }
 
+    public Double getPrecision(){
+
+        if (reference.isEmpty() && (value.isEmpty())){
+            return 1.0;
+        }
+
+        Double truePositive, falsePositive;
+        truePositive = falsePositive = 0.0;
+
+        truePositive    += value.stream().filter( e -> reference.contains(e)).count();
+
+        falsePositive   += value.stream().filter( e -> !reference.contains(e)).count();
+
+        double positive = (Double.valueOf(truePositive) + Double.valueOf(falsePositive));
+
+        if (positive == 0.0) return 0.0;
+
+        return Double.valueOf(truePositive) / positive;
+    }
+
     public Double getPrecisionAt(Integer n){
 
         if (reference.isEmpty() && (value.isEmpty())){
@@ -35,6 +55,26 @@ public class Evaluation {
         falsePositive   += candidateList.stream().filter( e -> !reference.contains(e)).count();
 
         double positive = (Double.valueOf(truePositive) + Double.valueOf(falsePositive));
+
+        if (positive == 0.0) return 0.0;
+
+        return Double.valueOf(truePositive) / positive;
+    }
+
+    public Double getRecall(){
+
+        if (reference.isEmpty()){
+            return 1.0;
+        }
+
+        Double truePositive, falseNegative;
+        truePositive = falseNegative = 0.0;
+
+        truePositive    += value.stream().filter( e -> reference.contains(e)).count();
+
+        falseNegative   += reference.stream().filter( e -> !value.contains(e)).count();
+
+        double positive = (Double.valueOf(truePositive)+ Double.valueOf(falseNegative));
 
         if (positive == 0.0) return 0.0;
 
@@ -61,6 +101,14 @@ public class Evaluation {
         if (positive == 0.0) return 0.0;
 
         return Double.valueOf(truePositive) / positive;
+    }
+
+    public Double getFMeasure(){
+
+        Double precision = getPrecision();
+        Double recall = getRecall();
+        if ((precision == 0) && (recall == 0)) return 0.0;
+        return 2 * (precision*recall) / (precision+recall);
     }
 
     public Double getFMeasureAtN(Integer n){

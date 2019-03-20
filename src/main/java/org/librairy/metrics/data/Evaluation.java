@@ -21,8 +21,10 @@ public class Evaluation {
 
     public Double getPrecision(){
 
-        if (reference.isEmpty() && (value.isEmpty())){
-            return 1.0;
+        if (value.isEmpty()) return 1.0;
+
+        if (reference.isEmpty() && (!value.isEmpty())){
+            return 0.0;
         }
 
         Double truePositive, falsePositive;
@@ -41,8 +43,10 @@ public class Evaluation {
 
     public Double getPrecisionAt(Integer n){
 
-        if (reference.isEmpty() && (value.isEmpty())){
-                return 1.0;
+        if (value.isEmpty()) return 1.0;
+
+        if (reference.isEmpty() && (!value.isEmpty())){
+            return 0.0;
         }
 
         Double truePositive, falsePositive;

@@ -1,7 +1,9 @@
 package org.librairy.metrics.data;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
@@ -12,11 +14,17 @@ public class Evaluation {
     private final List<String> reference;
     private final List<String> value;
     private final Date time;
+    private final HashMap groundTruth;
 
     public Evaluation(List<String> reference, List<String> value){
         this.reference  = reference;
         this.value      = value;
         this.time       = new Date();
+
+        this.groundTruth = new HashMap<>();
+        if (!reference.isEmpty()){
+            reference.forEach(e -> groundTruth.put(e,true));
+        }
     }
 
     public Double getPrecision(){
@@ -39,6 +47,33 @@ public class Evaluation {
         if (positive == 0.0) return 0.0;
 
         return Double.valueOf(truePositive) / positive;
+    }
+
+    public Double getAveragedPrecision(){
+
+        if (value.isEmpty()) return 1.0;
+
+        if (reference.isEmpty() && (!value.isEmpty())){
+            return 0.0;
+        }
+
+        int limit = Math.min(reference.size(), value.size());
+
+
+        int tp = 0;
+        double accp = 0.0;
+        for(int i=0;i<limit;i++){
+
+            if (groundTruth.containsKey(value.get(i))){
+                tp += 1;
+                accp += (Double.valueOf(tp) / Double.valueOf(i+1));
+            }
+        }
+
+        if (tp == 0) return 0.0;
+
+        double ap = accp / Double.valueOf(tp);
+        return ap;
     }
 
     public Double getPrecisionAt(Integer n){
